@@ -1,0 +1,56 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Medicamentos</h2>
+  </div>
+  <div class="row p-2">
+    <div class="col-md-6">
+        <form #formMe="ngForm" class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
+          <div class="input-group">
+            <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." aria-label="Search" aria-describedby="basic-addon2" 
+            #queryText="ngModel" [(ngModel)]="query" name="query" pattern="[a-zA-Z0-9\s]+">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" (click)="reloadData()"  [disabled]="formMe.invalid">
+                <i class="fas fa-search fa-sm"></i>
+              </button>
+            </div>
+          </div>
+          <small *ngIf="!queryText.valid && queryText.touched" style="color: red;">
+            El texto no es v&aacute;lido
+          </small>
+        </form>
+    </div> 
+    <div class="col-md-6" style="text-align: right;">
+      <button class="btn btn-primary" (click)="addMedicine()"><i class="fas fa-plus"></i> Nuevo</button>
+    </div>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Posolog&iacute;a</th>
+          <th>Fecha Expiraci&oacute;n</th>
+          <th >Ingredientes</th>
+          <th style="width: 10%; text-align: center;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of list | async">
+          <td>{{item.name}}</td>
+          <td>{{item.posology}}</td>
+          <td>{{item.expire | date }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let ing of item.ingredients">{{ing.name}}</li>
+            </ul>
+          </td>
+          <td style="text-align: center;">
+            <button (click)="editMedicine(item.id)" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
+            <button (click)="deleteMedicine(item.id)" class="btn btn-danger btn-sm"
+              style="margin-left: 10px"><i class="fas fa-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Ingredientes</h2>
+  </div>
+  <div class="float-right pb-2">
+    <button class="btn btn-primary" (click)="addIngredient()"><i class="fas fa-plus"></i> Nuevo</button>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th style="width: 10%; text-align: center;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of list | async">
+          <td>{{item.name}}</td>
+          <td style="text-align: center;">
+            <button (click)="editIngredient(item.id)" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
+            <button (click)="deleteIngredient(item.id)" class="btn btn-danger btn-sm"
+              style="margin-left: 10px"><i class="fas fa-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

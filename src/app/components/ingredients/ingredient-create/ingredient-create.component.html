@@ -1,0 +1,20 @@
+<h3>{{title}} Ingrediente</h3>
+<div [hidden]="submitted" style="width: 400px;">
+  <form (ngSubmit)="onSubmit()" #formIn="ngForm">
+    <div class="form-group">
+      <label for="name">Nombre</label>
+      <input type="text" class="form-control" id="firstName" #name="ngModel" required [(ngModel)]="ingredient.name"
+        name="name" pattern="[a-zA-Z0-9\s]+">
+      <small *ngIf="!name.valid && name.touched" style="color: red;">
+        Nombre no es v&aacute;lido
+      </small>
+    </div>
+    <button type="submit" class="btn btn-success btn-sm" [disabled]="formIn.invalid">Guardar</button>
+    <button type="button" (click)="gotoList()" class="btn btn-sm btn-light" style="margin-left: 10px">Cancelar</button>
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <h4>You submitted successfully!</h4>
+  <!-- <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
+</div>
